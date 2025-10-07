@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>أداة التحليل النهائية</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; color: #333; text-align: center; padding: 50px; }
+        #container { background-color: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
+        textarea { width: 100%; min-height: 150px; margin-bottom: 20px; padding: 10px; border-radius: 5px; border: 1px solid #ddd; font-size: 16px; }
+        button { background-color: #007bff; color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 18px; cursor: pointer; transition: background-color 0.3s; }
+        button:hover { background-color: #0056b3; }
+        #status { margin-top: 20px; font-size: 16px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h1>أداة التحليل النهائية</h1>
+        <p>الصق النص الذي تريد تحليله في المربع أدناه ثم اضغط على "تحليل".</p>
+        <textarea id="textInput" placeholder="مثال: تواصل مع العميل أحمد على الرقم 0612345678 أو عبر البريد ahmed@example.com"></textarea>
+        <button onclick="analyzeText()">تحليل النص</button>
+        <p id="status"></p>
+    </div>
+
+    <script>
+        async function analyzeText() {
+            // الرابط الخاص بك تم دمجه هنا
+            const webhookURL = "https://ahmedbpnb.app.n8n.cloud/webhook/949d296d-c67e-4394-8fea-7744f5d06c58/chat";
+            
+            const textToAnalyze = document.getElementById('textInput' ).value;
+            const statusElement = document.getElementById('status');
+
+            if (!textToAnalyze) {
+                statusElement.innerText = "الرجاء إدخال نص للتحليل.";
+                statusElement.style.color = "red";
+                return;
+            }
+
+            statusElement.innerText = "جارٍ إرسال البيانات إلى سير العمل...";
+            statusElement.style.color = "orange";
+
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    // نرسل البيانات بالتنسيق الذي يتوقعه سير العمل الخاص بك
+                    body: JSON.stringify({
+                        "action": "sendMessage",
+                        "chatInput": textToAnalyze
+                    })
+                });
+
+                if (response.ok) {
+                    const result = await response.json(); // نفترض أن الرد هو JSON
+                    statusElement.innerText = "نجح! تم استلام الرد من سير العمل.";
+                    statusElement.style.color = "green";
+                    console.log("الرد:", result);
+                } else {
+                    statusElement.innerText = `فشل الإرسال. الحالة: ${response.status}`;
+                    statusElement.style.color = "red";
+                }
+
+            } catch (error) {
+                statusElement.innerText = "حدث خطأ فادح: " + error;
+                statusElement.style.color = "red";
+            }
+        }
+    </script>
+
+</body>
+</html>
