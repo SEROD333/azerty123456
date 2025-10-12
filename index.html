@@ -4,19 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مولد الشعارات الفوري - الإصدار المتقدم</title>
-    
-    <!-- المكتبات الأصلية -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Changa:wght@600;800&family=Lemonada:wght@700&family=Reem+Kufi:wght@700&family=Tajawal:wght@800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
-    <!-- *** الإضافة الجديدة: مكتبة Supabase *** -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
     <style>
-        /* CSS الأصلي بالكامل (1000+ سطر ) - لا تغيير هنا */
         :root {
             --dark-bg: #121418;
             --card-bg: #1a1d24;
@@ -133,6 +126,7 @@
             margin-bottom: 20px;
         }
         
+        /* شريط التقدم */
         .progress-bar {
             display: flex;
             justify-content: space-between;
@@ -214,6 +208,7 @@
             border-radius: 3px;
         }
         
+        /* تحسينات على حقول الإدخال والأزرار */
         #company-name-input { 
             width: 85%; 
             padding: 18px; 
@@ -235,7 +230,7 @@
             transform: translateY(-2px);
         }
         
-        #generate-button, #google-login-btn, #logout-btn {
+        #generate-button {
             background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
             color: white;
             border: none;
@@ -248,10 +243,9 @@
             box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
             position: relative;
             overflow: hidden;
-            margin-top: 10px;
         }
         
-        #generate-button::before, #google-login-btn::before, #logout-btn::before {
+        #generate-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -262,25 +256,20 @@
             transition: 0.5s;
         }
         
-        #generate-button:hover, #google-login-btn:hover, #logout-btn:hover {
+        #generate-button:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
         }
         
-        #generate-button:hover::before, #google-login-btn:hover::before, #logout-btn:hover::before {
+        #generate-button:hover::before {
             left: 100%;
         }
         
-        #generate-button:active, #google-login-btn:active, #logout-btn:active {
+        #generate-button:active {
             transform: translateY(0);
         }
-
-        #logout-btn {
-             background: linear-gradient(135deg, var(--error), #b91c1c);
-             padding: 10px 25px;
-             font-size: 1rem;
-        }
         
+        /* تحسينات على عرض الشعارات */
         #logos-container { 
             margin-top: 30px; 
             display: grid; 
@@ -358,6 +347,7 @@
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
         
+        /* معاينة الشعار الكبيرة */
         #logo-preview {
             position: fixed;
             top: 50%;
@@ -438,6 +428,7 @@
             animation: fadeIn 0.3s ease forwards;
         }
         
+        /* تحسينات على ألواح التخصيص */
         .customization-panel { 
             background-color: var(--dark-bg); 
             padding: 25px; 
@@ -603,6 +594,7 @@
             box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
         }
         
+        /* تحسينات على خيارات التحميل */
         #download-options { 
             display: flex; 
             gap: 30px; 
@@ -678,6 +670,7 @@
             font-size: 1.3rem;
         }
         
+        /* تحسينات على القائمة الجانبية */
         #menu-toggle {
             position: fixed;
             top: 25px;
@@ -805,8 +798,8 @@
             display: inline-block;
         }
         
-        /* *** تعديل على معلومات المستخدم *** */
-        #user-info-container { 
+        /* تحسينات على معلومات المستخدم */
+        #user-info-display { 
             position: fixed; 
             top: 25px; 
             left: 25px; 
@@ -817,4 +810,958 @@
             font-size: 1rem; 
             z-index: 1001; 
             border: 2px solid var(--border-color); 
-            box-shadow: 0 5px
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        #user-points-display {
+            color: var(--primary-yellow);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        #add-points-btn {
+            background: linear-gradient(135deg, var(--primary-yellow), #f97316);
+            color: black;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        #add-points-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        }
+        
+        footer { 
+            margin-top: 60px; 
+            border-top: 2px solid var(--border-color); 
+            padding-top: 30px; 
+            padding-bottom: 25px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        
+        /* تحسينات على الشعار أثناء التحميل */
+        .loading-spinner { 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 60px; 
+            gap: 25px; 
+        }
+        
+        .spinner { 
+            width: 70px; 
+            height: 70px; 
+            border: 5px solid var(--border-color); 
+            border-top-color: var(--primary-blue); 
+            border-radius: 50%; 
+            animation: spin 1s linear infinite; 
+        }
+        
+        @keyframes spin { 
+            to { 
+                transform: rotate(360deg); 
+            } 
+        }
+        
+        /* تحسينات للعرض على الجوال */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px auto;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            #logos-container {
+                grid-template-columns: 1fr;
+            }
+            
+            #download-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .download-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            #company-name-input {
+                width: 100%;
+            }
+            
+            .progress-step .step-label {
+                font-size: 0.9rem;
+            }
+            
+            #user-info-display {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px;
+            }
+        }
+        
+        /* تأثيرات إضافية */
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        .slide-in {
+            animation: slideIn 0.5s ease forwards;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(59, 130, 246, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+        
+        /* تحسينات على عرض العروض */
+        #adgem-offerwall-overlay { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.95); 
+            display: none; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 2000; 
+        }
+        
+        #adgem-offerwall-content { 
+            background: var(--card-bg); 
+            padding: 35px; 
+            border-radius: 20px; 
+            width: 90%; 
+            max-width: 550px; 
+            text-align: center; 
+            border: 2px solid var(--border-color); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        
+        #adgem-offerwall-content .offer { 
+            background: var(--dark-bg); 
+            padding: 25px; 
+            margin: 20px 0; 
+            border-radius: 12px; 
+            border: 2px solid var(--border-color); 
+            cursor: pointer; 
+            transition: all var(--transition-speed) ease;
+            text-align: right;
+        }
+        
+        #adgem-offerwall-content .offer:hover { 
+            border-color: var(--primary-yellow); 
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+        
+        #adgem-offerwall-content .offer p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        #adgem-offerwall-content .offer span {
+            color: var(--primary-yellow);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        #close-offerwall {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            margin-top: 25px;
+            transition: all var(--transition-speed) ease;
+        }
+        
+        #close-offerwall:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* أنيميشن للعناصر الجديدة */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* تأثيرات خاصة للشعارات */
+        .logo-card.glow {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        
+        .logo-card.glow:hover {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.7);
+        }
+        
+        /* تأثيرات النص */
+        .gradient-text {
+            background: linear-gradient(to right, var(--primary-blue), var(--primary-purple), var(--primary-yellow));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% auto;
+        }
+        
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+    <div id="sidebar-overlay"></div>
+    <div id="sidebar">
+        <nav>
+            <a href="#" class="nav-link active" data-page="main-content">الصفحة الرئيسية</a>
+            <a href="#" class="nav-link" data-page="about-us">من نحن؟</a>
+            <a href="#" class="nav-link" data-page="faq">الأسئلة الشائعة</a>
+            <a href="#" class="nav-link" data-page="privacy">سياسة الخصوصية</a>
+            <a href="#" class="nav-link" data-page="contact-us">اتصل بنا</a>
+            <a href="#" class="nav-link" id="view-history">شعاراتي السابقة</a>
+            <a href="#" class="nav-link" id="premium-features">الميزات المميزة</a>
+        </nav>
+    </div>
+
+    <div id="user-info-display">
+        <span id="user-id-display"></span> | <span id="user-points-display"></span>
+        <button id="add-points-btn">إضافة نقاط</button>
+    </div>
+
+    <div class="main-wrapper">
+        <div id="main-content" class="page-content active">
+            <div class="container">
+                <header>
+                    <h1><span class="gradient-text">مولد الشعارات الفوري</span> <span style="color: var(--primary-yellow);">PRO</span></h1>
+                    <p>اصنع شعارًا احترافيًا لشركتك في ثوانٍ مع خيارات تخصيص متقدمة غير محدودة</p>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-step active" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-label">إدخال الاسم</div>
+                        </div>
+                        <div class="progress-step" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-label">اختيار التصميم</div>
+                        </div>
+                        <div class="progress-step" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-label">التخصيص</div>
+                        </div>
+                        <div class="progress-step" data-step="4">
+                            <div class="step-number">4</div>
+                            <div class="step-label">التنزيل</div>
+                        </div>
+                    </div>
+                </header>
+                
+                <main>
+                    <section id="input-section">
+                        <h2>الخطوة 1: أدخل اسم شركتك</h2>
+                        <input type="text" id="company-name-input" placeholder="مثال: أسود الأطلس">
+                        <button id="generate-button" class="pulse">صمم شعاري الآن!</button>
+                    </section>
+                    
+                    <div id="loading-spinner" class="loading-spinner" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>جاري توليد التصاميم...</p>
+                    </div>
+                    
+                    <section id="results-section" style="display: none;">
+                        <h2>الخطوة 2: اختر وطور شعارك</h2>
+                        <button id="preview-logo-btn" style="margin-bottom: 25px; background: linear-gradient(135deg, var(--primary-green), #059669); color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; display: none; font-weight: 700;">
+                            <i class="fas fa-eye"></i> معاينة الشعار
+                        </button>
+                        <div id="logos-container"></div>
+                        
+                        <div id="icons-section" class="customization-panel" style="display: none;">
+                            <p style="margin: 0 0 20px 0; color: var(--text-light); font-weight: 700; font-size: 1.2rem;">أضف أيقونة (اختياري)</p>
+                            <div class="icons-palette"></div>
+                        </div>
+                        
+                        <div id="customization-section" class="customization-panel" style="display: none;">
+                            <p style="margin: 0 0 20px 0; color: var(--text-light); font-weight: 700; font-size: 1.2rem;">غيّر لون شعارك</p>
+                            <div class="palette color-palette"></div>
+                        </div>
+                        
+                        <div id="background-section" class="customization-panel" style="display: none;">
+                            <p style="margin: 0 0 20px 0; color: var(--text-light); font-weight: 700; font-size: 1.2rem;">اختر لون الخلفية</p>
+                            <div class="palette background-palette"></div>
+                        </div>
+                        
+                        <div id="advanced-controls-section" class="customization-panel" style="display: none;">
+                            <p style="margin: 0 0 25px 0; color: var(--text-light); font-weight: 700; font-size: 1.2rem;">تحكم متقدم</p>
+                            
+                            <div class="control-group">
+                                <label for="font-size-slider">حجم الخط:</label>
+                                <input type="range" id="font-size-slider" min="1" max="3" step="0.1" value="1.8">
+                                <span id="font-size-value">1.8rem</span>
+                            </div>
+                            
+                            <div class="control-group">
+                                <label>موضع الأيقونة:</label>
+                                <div id="icon-position-buttons" class="button-group">
+                                    <button data-position="top"><i class="fa-solid fa-arrow-up"></i> فوق</button>
+                                    <button data-position="left"><i class="fa-solid fa-arrow-left"></i> يسار</button>
+                                    <button data-position="right"><i class="fa-solid fa-arrow-right"></i> يمين</button>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label>تأثيرات إضافية:</label>
+                                <div id="effects-buttons" class="button-group">
+                                    <button data-effect="glow"><i class="fa-solid fa-wand-magic-sparkles"></i> توهج</button>
+                                    <button data-effect="shadow"><i class="fa-solid fa-moon"></i> ظل</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section id="download-section" style="display: none;">
+                        <h2>الخطوة 4: قم بتنزيل شعارك</h2>
+                        <div id="download-options"></div>
+                    </section>
+                </main>
+            </div>
+        </div>
+
+        <div id="about-us" class="page-content container"></div>
+        <div id="faq" class="page-content container"></div>
+        <div id="privacy" class="page-content container"></div>
+        <div id="contact-us" class="page-content container"></div>
+        <div id="logo-history" class="page-content container" style="display: none;">
+            <h2>شعاراتي السابقة</h2>
+            <div id="history-container" style="text-align: center; padding: 25px;"></div>
+        </div>
+
+        <div id="premium-features" class="page-content container" style="display: none;">
+            <h2>الميزات المميزة</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h3>شعارات غير محدودة</h3>
+                    <p>أنشئ عددًا غير محدود من الشعارات لجميع مشاريعك</p>
+                </div>
+                <div class="feature-item">
+                    <h3>جودة عالية</h3>
+                    <p>احصل على شعارات بدقة عالية تناسب جميع الاستخدامات</p>
+                </div>
+                <div class="feature-item">
+                    <h3>دعم فني</h3>
+                    <p>مساعدة فنية متخصصة على مدار الساعة</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>جميع الحقوق محفوظة © 2025 - مولد الشعارات الفوري PRO</p>
+        </footer>
+    </div>
+
+    <!-- معاينة الشعار -->
+    <div id="overlay"></div>
+    <div id="logo-preview">
+        <button id="preview-close"><i class="fas fa-times"></i></button>
+        <h3>معاينة الشعار</h3>
+        <div class="preview-logo">
+            <i class="fa-solid fa-star"></i>
+            <span>اسم الشركة</span>
+        </div>
+        <p>هذه معاينة للشعار النهائي قبل التحميل</p>
+        <button id="preview-download" style="background: linear-gradient(135deg, var(--primary-green), #059669); color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; margin-top: 15px; font-weight: 600;">
+            <i class="fas fa-download"></i> تنزيل الشعار
+        </button>
+    </div>
+
+    <!-- نافذة العروض -->
+    <div id="adgem-offerwall-overlay">
+        <div id="adgem-offerwall-content">
+            <h2 style="color: var(--primary-yellow); border: none;">اجمع النقاط مجانًا!</h2>
+            <p>أكمل أحد هذه العروض للحصول على نقاط وتنزيل شعارك بجودة عالية.</p>
+            
+            <div class="offer" onclick="simulateAdGemPostback(150, 'لعبة حرب الملوك')">
+                <p><strong>لعبة "حرب الملوك"</strong> - قم بالوصول للمستوى 5</p>
+                <span>+ 150 نقطة</span>
+            </div>
+            
+            <div class="offer" onclick="simulateAdGemPostback(50, 'استبيان سريع')">
+                <p><strong>أجب على استبيان سريع</strong> - 3 دقائق فقط</p>
+                <span>+ 50 نقطة</span>
+            </div>
+            
+            <div class="offer" onclick="simulateAdGemPostback(100, 'تطبيق التسوق')">
+                <p><strong>تطبيق التسوق</strong> - قم بشراء أول</p>
+                <span>+ 100 نقطة</span>
+            </div>
+            
+            <button id="close-offerwall">إغلاق</button>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. ربط عناصر HTML ---
+        const companyNameInput = document.getElementById('company-name-input');
+        const generateButton = document.getElementById('generate-button');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const resultsSection = document.getElementById('results-section');
+        const logosContainer = document.getElementById('logos-container');
+        const iconsSection = document.getElementById('icons-section');
+        const iconsPalette = document.querySelector('.icons-palette');
+        const customizationSection = document.getElementById('customization-section');
+        const colorPalette = document.querySelector('.color-palette');
+        const backgroundSection = document.getElementById('background-section');
+        const backgroundPalette = document.querySelector('.background-palette');
+        const advancedControlsSection = document.getElementById('advanced-controls-section');
+        const fontSizeSlider = document.getElementById('font-size-slider');
+        const fontSizeValue = document.getElementById('font-size-value');
+        const iconPositionButtons = document.getElementById('icon-position-buttons');
+        const effectsButtons = document.getElementById('effects-buttons');
+        const downloadSection = document.getElementById('download-section');
+        const downloadOptions = document.getElementById('download-options');
+        const adgemOverlay = document.getElementById('adgem-offerwall-overlay');
+        const closeOfferwallButton = document.getElementById('close-offerwall');
+        const userIdDisplay = document.getElementById('user-id-display');
+        const userPointsDisplay = document.getElementById('user-points-display');
+        const addPointsBtn = document.getElementById('add-points-btn');
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageContents = document.querySelectorAll('.page-content');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        const previewLogoBtn = document.getElementById('preview-logo-btn');
+        const logoPreview = document.getElementById('logo-preview');
+        const overlay = document.getElementById('overlay');
+        const previewClose = document.getElementById('preview-close');
+        const previewDownload = document.getElementById('preview-download');
+        const viewHistoryBtn = document.getElementById('view-history');
+        const logoHistoryPage = document.getElementById('logo-history');
+        const historyContainer = document.getElementById('history-container');
+        const premiumFeatures = document.getElementById('premium-features');
+
+        const user = { id: null, points: 0 };
+        let currentLogo = null;
+        let logoHistory = [];
+
+        const pageData = {
+            'about-us': `<h2>من نحن؟</h2><p>نحن منصة "مولد الشعارات الفوري"، مشروع وُلد من شغف بتمكين الأفكار الرائعة. نؤمن بأن كل مشروع، كبيراً كان أم صغيراً، يستحق هوية بصرية احترافية تعبر عنه.</p><p>مهمتنا هي أن نضع بين يدي رواد الأعمال والمبدعين أداة سهلة، سريعة، ومجانية لصناعة شعارات جذابة، بدون الحاجة لخبرة تقنية أو ميزانيات ضخمة. نحن هنا لنكون شرارة البداية لقصة نجاحك.</p>`,
+            'faq': `<h2>الأسئلة الشائعة</h2><h3>كيف يعمل الموقع؟</h3><p>بكل بساطة! أدخل اسم شركتك، اختر النمط والأيقونة واللون الذي يعجبك، ثم قم بتنزيل شعارك. يمكنك تنزيل نسخة مجانية بجودة منخفضة، أو نسخة احترافية عالية الجودة باستخدام النقاط.</p><h3>كيف أحصل على النقاط؟</h3><p>يمكنك الحصول على النقاط مجاناً عن طريق إكمال بعض العروض البسيطة المقدمة من شركائنا (مثل تجربة لعبة أو الإجابة على استبيان). عند إكمالك للعرض، تتم إضافة النقاط إلى رصيدك تلقائياً.</p><h3>هل التنزيل الاحترافي يستحق؟</h3><p>بالتأكيد! النسخة الاحترافية تأتي كملف فيكتور (SVG)، مما يعني أنه يمكنك تكبيره لأي حجم دون فقدان الجودة، وهو مثالي للطباعة والاستخدامات التجارية.</p>`,
+            'privacy': `<h2>سياسة الخصوصية</h2><p>نحن في "مولد الشعارات الفوري" نأخذ خصوصيتك على محمل الجد.</p><p><strong>المعلومات التي نجمعها:</strong> نحن لا نجمع أو نخزن أي معلومات شخصية تحدد هويتك. معرّف المستخدم (UserID) الذي يتم إنشاؤه هو عشوائي ومجهول الهوية تماماً، ويستخدم فقط لغرض وحيد وهو ربط النقاط التي تجمعها بحسابك داخل الموقع.</p><p><strong>معلومات الاتصال:</strong> إذا قمت بالاتصال بنا عبر البريد الإلكتروني أو الهاتف، فسيتم استخدام معلوماتك فقط للرد على استفسارك أو طلبك. نحن لا نشارك هذه المعلومات مع أي طرف ثالث على الإطلاق.</p><p><strong>بياناتك آمنة:</strong> كل البيانات المتعلقة بنقاطك ومعرف المستخدم يتم تخزينها محلياً على جهازك باستخدام تقنية LocalStorage في متصفحك، ولا يتم رفعها إلى أي خادم.</p>`,
+            'contact-us': `<h2>اتصل بنا</h2><p>يسعدنا دائماً سماع آرائكم ومقترحاتكم، أو مساعدتكم في حال واجهتكم أي مشكلة. يمكنكم التواصل معنا عبر الوسائل التالية:</p><h3 style="text-align: center; direction: ltr;"><i class="fa-solid fa-envelope" style="color: var(--primary-yellow);"></i> ahmedroor014@gmail.com</h3><h3 style="text-align: center; direction: ltr;"><i class="fa-solid fa-phone" style="color: var(--primary-yellow);"></i> 0607072825</h3>`
+        };
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+
+        function initializeApp() {
+            user.id = localStorage.getItem('userID') || `user-${Date.now()}`;
+            localStorage.setItem('userID', user.id);
+            user.points = parseInt(localStorage.getItem(`points_${user.id}`) || '0');
+            
+            // تحميل تاريخ الشعارات
+            const savedHistory = localStorage.getItem(`logoHistory_${user.id}`);
+            if (savedHistory) {
+                logoHistory = JSON.parse(savedHistory);
+            }
+            
+            updateUserInfoDisplay();
+            setupPageContent();
+            addEventListeners();
+            setupColorPalettes();
+        }
+
+        function setupPageContent() {
+            Object.keys(pageData).forEach(key => {
+                const pageDiv = document.getElementById(key);
+                if (pageDiv) pageDiv.innerHTML = pageData[key];
+            });
+        }
+
+        function setupColorPalettes() {
+            // ألوان النص
+            const textColors = ['#e5e7eb', '#3b82f6', '#f59e0b', '#34d399', '#ef4444', '#8b5cf6', '#ec4899', '#ffffff', '#f97316', '#a855f7', '#06b6d4'];
+            
+            textColors.forEach(color => {
+                const colorBox = document.createElement('div');
+                colorBox.className = 'color-box';
+                colorBox.style.backgroundColor = color;
+                colorBox.dataset.type = 'text';
+                colorPalette.appendChild(colorBox);
+            });
+            
+            // ألوان الخلفية
+            const bgColors = ['#1a1d24', '#121418', '#3b82f6', '#0f172a', '#1e40af', '#1e3a8a', '#1c1917', '#1f2937', '#111827', '#1f2937', '#374151'];
+            
+            bgColors.forEach(color => {
+                const colorBox = document.createElement('div');
+                colorBox.className = 'color-box';
+                colorBox.style.backgroundColor = color;
+                colorBox.dataset.type = 'background';
+                backgroundPalette.appendChild(colorBox);
+            });
+        }
+
+        function addEventListeners() {
+            generateButton.addEventListener('click', generateLogos);
+            closeOfferwallButton.addEventListener('click', () => { adgemOverlay.style.display = 'none'; });
+            fontSizeSlider.addEventListener('input', handleFontSizeChange);
+            iconPositionButtons.addEventListener('click', handleIconPositionChange);
+            effectsButtons.addEventListener('click', handleEffectsChange);
+            menuToggle.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+            navLinks.forEach(link => link.addEventListener('click', handleNavClick));
+            addPointsBtn.addEventListener('click', () => { adgemOverlay.style.display = 'flex'; });
+            previewLogoBtn.addEventListener('click', showLogoPreview);
+            previewClose.addEventListener('click', closeLogoPreview);
+            previewDownload.addEventListener('click', downloadFromPreview);
+            overlay.addEventListener('click', closeLogoPreview);
+            viewHistoryBtn.addEventListener('click', showLogoHistory);
+            
+            // إضافة مستمعي الأحداث لألوان النص والخلفية
+            document.querySelectorAll('.color-palette .color-box').forEach(box => {
+                box.addEventListener('click', handleColorSelection);
+            });
+            
+            document.querySelectorAll('.background-palette .color-box').forEach(box => {
+                box.addEventListener('click', handleBackgroundSelection);
+            });
+        }
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+        }
+
+        function handleNavClick(e) {
+            e.preventDefault();
+            const pageId = e.target.dataset.page;
+            
+            pageContents.forEach(content => content.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+
+            navLinks.forEach(link => link.classList.remove('active'));
+            e.target.classList.add('active');
+            
+            toggleSidebar();
+        }
+
+        function updateProgress(step) {
+            progressSteps.forEach((stepElement, index) => {
+                if (index + 1 < step) {
+                    stepElement.classList.add('completed');
+                    stepElement.classList.remove('active');
+                } else if (index + 1 === step) {
+                    stepElement.classList.add('active');
+                    stepElement.classList.remove('completed');
+                } else {
+                    stepElement.classList.remove('active', 'completed');
+                }
+            });
+        }
+
+        function generateLogos() {
+            const companyName = companyNameInput.value;
+            if (companyName.trim() === '') { 
+                alert('الرجاء إدخال اسم الشركة أولاً!'); 
+                return; 
+            }
+            
+            logosContainer.innerHTML = '';
+            ['results-section', 'icons-section', 'customization-section', 'background-section', 'advanced-controls-section', 'download-section'].forEach(id => document.getElementById(id).style.display = 'none');
+            loadingSpinner.style.display = 'flex';
+            previewLogoBtn.style.display = 'none';
+
+            updateProgress(2);
+
+            setTimeout(() => {
+                loadingSpinner.style.display = 'none';
+                resultsSection.style.display = 'block';
+
+                const styles = [
+                    { fontFamily: "'Cairo', sans-serif", fontWeight: '900', color: '#e5e7eb' },
+                    { fontFamily: "'Changa', sans-serif", fontWeight: '800', color: '#3b82f6', textTransform: 'uppercase' },
+                    { fontFamily: "'Lemonada', cursive", fontWeight: '700', color: '#f59e0b' },
+                    { fontFamily: "'Reem Kufi', sans-serif", fontWeight: '700', color: '#e5e7eb', letterSpacing: '1px' },
+                    { fontFamily: "'Tajawal', sans-serif", fontWeight: '800', color: '#34d399' }
+                ];
+
+                styles.forEach((style, index) => {
+                    setTimeout(() => { createLogoCard(companyName, style, index); }, index * 100);
+                });
+
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        function createLogoCard(text, styles, index) {
+            const card = document.createElement('div');
+            card.className = 'logo-card';
+            card.dataset.index = index;
+            
+            const iconElement = document.createElement('i');
+            iconElement.className = 'fa-solid fa-star';
+            
+            const textSpan = document.createElement('span');
+            textSpan.textContent = text;
+            Object.assign(textSpan.style, styles);
+            
+            iconElement.style.color = styles.color;
+            
+            card.appendChild(iconElement);
+            card.appendChild(textSpan);
+            logosContainer.appendChild(card);
+            
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.logo-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                currentLogo = {
+                    element: card,
+                    text: text,
+                    icon: 'fa-star',
+                    color: styles.color,
+                    background: '#1a1d24',
+                    fontSize: 2,
+                    iconPosition: 'top',
+                    effects: []
+                };
+                
+                showAllControls();
+                updateProgress(3);
+                previewLogoBtn.style.display = 'block';
+            });
+        }
+
+        function showAllControls() {
+            showIconOptions();
+            showCustomizationOptions();
+            showBackgroundOptions();
+            showAdvancedControls();
+            showDownloadOptions();
+        }
+
+        function showIconOptions() {
+            iconsSection.style.display = 'block';
+            iconsPalette.innerHTML = '';
+            const icons = ['fa-star', 'fa-rocket', 'fa-book-open', 'fa-car', 'fa-crown', 'fa-shield-halved', 'fa-lightbulb', 'fa-gem', 'fa-bolt', 'fa-globe', 'fa-anchor', 'fa-leaf', 'fa-fire', 'fa-heart', 'fa-coffee', 'fa-building', 'fa-store', 'fa-graduation-cap', 'fa-briefcase', 'fa-palette'];
+            
+            icons.forEach(iconClass => {
+                const iconBox = document.createElement('i');
+                iconBox.className = `icon-box fa-solid ${iconClass}`;
+                iconBox.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const selectedLogoCard = document.querySelector('.logo-card.selected');
+                    if (selectedLogoCard) {
+                        selectedLogoCard.querySelector('i').className = `fa-solid ${iconClass}`;
+                        currentLogo.icon = iconClass;
+                        
+                        // تحديث حالة الأيقونة النشطة
+                        document.querySelectorAll('.icon-box').forEach(box => box.classList.remove('active'));
+                        e.target.classList.add('active');
+                    }
+                });
+                iconsPalette.appendChild(iconBox);
+            });
+        }
+
+        function showCustomizationOptions() {
+            customizationSection.style.display = 'block';
+        }
+
+        function showBackgroundOptions() {
+            backgroundSection.style.display = 'block';
+        }
+
+        function showAdvancedControls() { 
+            advancedControlsSection.style.display = 'block'; 
+        }
+
+        function handleColorSelection(e) {
+            const color = e.target.style.backgroundColor;
+            const selectedLogoCard = document.querySelector('.logo-card.selected');
+            if (selectedLogoCard) {
+                selectedLogoCard.querySelector('span').style.color = color;
+                selectedLogoCard.querySelector('i').style.color = color;
+                currentLogo.color = color;
+                
+                // تحديث حالة اللون النشط
+                document.querySelectorAll('.color-palette .color-box').forEach(box => box.classList.remove('active'));
+                e.target.classList.add('active');
+            }
+        }
+
+        function handleBackgroundSelection(e) {
+            const color = e.target.style.backgroundColor;
+            const selectedLogoCard = document.querySelector('.logo-card.selected');
+            if (selectedLogoCard) {
+                selectedLogoCard.style.backgroundColor = color;
+                currentLogo.background = color;
+                
+                // تحديث حالة اللون النشط
+                document.querySelectorAll('.background-palette .color-box').forEach(box => box.classList.remove('active'));
+                e.target.classList.add('active');
+            }
+        }
+
+        function handleFontSizeChange(e) {
+            const selectedLogoCard = document.querySelector('.logo-card.selected');
+            if (selectedLogoCard) {
+                const fontSize = e.target.value;
+                selectedLogoCard.querySelector('span').style.fontSize = `${fontSize}rem`;
+                fontSizeValue.textContent = `${fontSize}rem`;
+                currentLogo.fontSize = parseFloat(fontSize);
+            }
+        }
+
+        function handleIconPositionChange(e) {
+            const button = e.target.closest('button');
+            if (!button) return;
+            const position = button.dataset.position;
+            const selectedLogoCard = document.querySelector('.logo-card.selected');
+            
+            if (selectedLogoCard) {
+                selectedLogoCard.style.gap = (position === 'top') ? '20px' : '15px';
+                selectedLogoCard.style.flexDirection = (position === 'top') ? 'column' : (position === 'left' ? 'row-reverse' : 'row');
+                currentLogo.iconPosition = position;
+                
+                // تحديث حالة الزر النشط
+                document.querySelectorAll('#icon-position-buttons button').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            }
+        }
+
+        function handleEffectsChange(e) {
+            const button = e.target.closest('button');
+            if (!button) return;
+            const effect = button.dataset.effect;
+            const selectedLogoCard = document.querySelector('.logo-card.selected');
+            
+            if (selectedLogoCard) {
+                selectedLogoCard.classList.toggle(effect);
+                
+                // تحديث حالة التأثير
+                if (selectedLogoCard.classList.contains(effect)) {
+                    if (!currentLogo.effects.includes(effect)) {
+                        currentLogo.effects.push(effect);
+                    }
+                    button.classList.add('active');
+                } else {
+                    currentLogo.effects = currentLogo.effects.filter(e => e !== effect);
+                    button.classList.remove('active');
+                }
+            }
+        }
+
+        function showDownloadOptions() {
+            downloadSection.style.display = 'block';
+            const canAfford = user.points >= 200;
+            downloadOptions.innerHTML = `
+                <div class="download-card" id="free-download">
+                    <h3>تنزيل مجاني</h3>
+                    <p>صورة PNG بجودة مناسبة للاستخدام الرقمي</p>
+                    <p class="free">مجاني</p>
+                </div>
+                <div class="download-card premium ${canAfford ? 'unlocked' : ''}" id="premium-download">
+                    <h3>تنزيل احترافي</h3>
+                    <p>ملف فيكتور عالي الجودة للطباعة والاستخدام التجاري</p>
+                    <p class="price">200 نقطة</p>
+                </div>
+            `;
+            
+            document.getElementById('free-download').addEventListener('click', downloadFreeLogo);
+            document.getElementById('premium-download').addEventListener('click', () => {
+                if (user.points >= 200) {
+                    handleTransaction(user.id, -200, "شراء شعار احترافي");
+                    downloadPremiumLogo();
+                } else {
+                    adgemOverlay.style.display = 'flex';
+                }
+            });
+            
+            updateProgress(4);
+            downloadSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }
+
+        function downloadFreeLogo() {
+            const selectedLogoCard = document.querySelector('.logo-card.selected');
+            if (!selectedLogoCard) return;
+            
+            html2canvas(selectedLogoCard, { 
+                backgroundColor: null, 
+                logging: false,
+                scale: 2
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `logo-${companyNameInput.value.trim().replace(/ /g, '-')}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                // حفظ في التاريخ
+                saveToHistory(link.href, 'مجاني');
+            });
+        }
+
+        function downloadPremiumLogo() {
+            alert("سيتم تطوير ميزة التنزيل الاحترافي قريباً. حالياً يتم التنزيل كصورة عادية بجودة عالية.");
+            downloadFreeLogo(); // كبديل مؤقت
+        }
+
+        function downloadFromPreview() {
+            downloadFreeLogo();
+            closeLogoPreview();
+        }
+
+        function saveToHistory(dataUrl, type) {
+            logoHistory.unshift({
+                dataUrl: dataUrl,
+                type: type,
+                name: companyNameInput.value,
+                date: new Date().toLocaleDateString('ar-SA')
+            });
+            
+            // حفظ فقط آخر 10 شعارات
+            if (logoHistory.length > 10) {
+                logoHistory.pop();
+            }
+            
+            localStorage.setItem(`logoHistory_${user.id}`, JSON.stringify(logoHistory));
+        }
+
+        function showLogoPreview() {
+            const selectedLogoCard = document.querySelector('.logo-card.selected');
+            if (!selectedLogoCard) return;
+            
+            const logoHTML = selectedLogoCard.innerHTML;
+            logoPreview.querySelector('.preview-logo').innerHTML = logoHTML;
+            
+            overlay.style.display = 'block';
+            logoPreview.style.display = 'flex';
+            
+            setTimeout(() => {
+                logoPreview.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 10);
+        }
+
+        function closeLogoPreview() {
+            logoPreview.style.transform = 'translate(-50%, -50%) scale(0.9)';
+            overlay.style.display = 'none';
+            
+            setTimeout(() => {
+                logoPreview.style.display = 'none';
+            }, 300);
+        }
+
+        function showLogoHistory() {
+            pageContents.forEach(content => content.classList.remove('active'));
+            logoHistoryPage.classList.add('active');
+            toggleSidebar();
+            
+            if (logoHistory.length === 0) {
+                historyContainer.innerHTML = '<p>لا يوجد شعارات سابقة</p>';
+                return;
+            }
+            
+            historyContainer.innerHTML = '';
+            logoHistory.forEach((logo, index) => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.style.display = 'inline-block';
+                historyItem.style.margin = '15px';
+                historyItem.style.textAlign = 'center';
+                
+                historyItem.innerHTML = `
+                    <img src="${logo.dataUrl}" alt="${logo.name}" style="width: 180px; height: 120px; object-fit: contain; background: #1a1d24; padding: 15px; border-radius: 12px; border: 2px solid var(--border-color);">
+                    <p style="margin-top: 12px; font-size: 1rem;">${logo.name}<br><span style="color: var(--primary-yellow);">${logo.type} - ${logo.date}</span></p>
+                `;
+                
+                historyContainer.appendChild(historyItem);
+            });
+        }
+
+        function updateUserInfoDisplay() {
+            userIdDisplay.textContent = `ID: ${user.id.substring(0, 8)}...`;
+            userPointsDisplay.textContent = `النقاط: ${user.points}`;
+        }
+
+        function simulateAdGemPostback(points, offerName) {
+            handleTransaction(user.id, points, `إكمال عرض: ${offerName}`);
+            adgemOverlay.style.display = 'none';
+        }
+
+        function handleTransaction(userId, pointsChange, reason) {
+            let currentPoints = parseInt(localStorage.getItem(`points_${userId}`) || '0');
+            currentPoints += pointsChange;
+            localStorage.setItem(`points_${userId}`, currentPoints);
+            user.points = currentPoints;
+            updateUserInfoDisplay();
+            showDownloadOptions();
+            alert(`تم تحديث رصيدك. السبب: ${reason}. الرصيد الجديد: ${currentPoints}`);
+        }
+    </script>
+
+</body>
+</html>
