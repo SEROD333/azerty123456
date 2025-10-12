@@ -1764,4 +1764,69 @@
     </script>
 
 </body>
-</html>
+</html><script>
+    // =================================================================
+    // ==   *** بداية كود Supabase لتسجيل الدخول ***   ==
+    // =================================================================
+
+    // ---!!!--- استبدل هذه القيم بالقيم الخاصة بك ---!!!---
+    const SUPABASE_URL = 'https://tbisyvorhpntdfyhofwf.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRiaXN5dm9yaHBudGRmeWhvZndmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAwOTI2NzMsImV4cCI6MjA3NTY2ODY3M30.sm8juSWMrWFUXG5-G7EgprhgkOHgEpR82XQX9LZYXdA';
+
+    // --- إنشاء اتصال مع Supabase ---
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY );
+
+    // --- ربط حاوية العرض في HTML ---
+    const authContainer = document.getElementById('auth-container');
+
+    // --- 1. دالة لتحديث واجهة المستخدم بناءً على حالة تسجيل الدخول ---
+    const updateUserUI = (user) => {
+        if (user) {
+            // -- حالة المستخدم مسجل دخوله --
+            // عرض صورته، اسمه، وزر تسجيل الخروج
+            authContainer.innerHTML = `
+                <div style="background: var(--card-bg); color: var(--text-light); padding: 10px 15px; border-radius: 30px; border: 2px solid var(--border-color); display: flex; align-items: center; gap: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <img src="${user.user_metadata.avatar_url}" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                    <span style="font-weight: bold;">أهلاً، ${user.user_metadata.full_name}</span>
+                    <button id="logout-btn" style="background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 700;">تسجيل الخروج</button>
+                </div>
+            `;
+            // إضافة وظيفة لزر تسجيل الخروج
+            document.getElementById('logout-btn').addEventListener('click', async () => {
+                const { error } = await supabase.auth.signOut();
+                if (error) console.error('خطأ في تسجيل الخروج:', error);
+            });
+        } else {
+            // -- حالة المستخدم غير مسجل --
+            // عرض زر تسجيل الدخول بجوجل
+            authContainer.innerHTML = `
+                <button id="google-login-btn" style="background: linear-gradient(135deg, #4285F4, #34A853); color: white; border: none; padding: 15px 30px; font-size: 1.1rem; border-radius: 50px; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                    <i class="fab fa-google" style="font-size: 1.2rem;"></i>
+                    <span>تسجيل الدخول باستخدام جوجل</span>
+                </button>
+            `;
+            // إضافة وظيفة لزر تسجيل الدخول
+            document.getElementById('google-login-btn').addEventListener('click', async () => {
+                const { error } = await supabase.auth.signInWithOAuth({
+                    provider: 'google',
+                });
+                if (error) console.error('خطأ في تسجيل الدخول بجوجل:', error);
+            });
+        }
+    };
+
+    // --- 2. التحقق من حالة المستخدم عند تحميل الصفحة أول مرة ---
+    supabase.auth.getSession().then(({ data: { session } }) => {
+        updateUserUI(session?.user ?? null);
+    });
+
+    // --- 3. الاستماع للتغيرات في حالة تسجيل الدخول (عندما يسجل المستخدم دخوله أو خروجه) ---
+    supabase.auth.onAuthStateChange((_event, session) => {
+        updateUserUI(session?.user ?? null);
+    });
+
+    // =================================================================
+    // ==    *** نهاية كود Supabase لتسجيل الدخول ***    ==
+    // =================================================================
+</script>
+
